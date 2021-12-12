@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import AutoDismissAlert from './components/shared/AutoDismissAlert/AutoDismissAlert'
 import Header from './components/shared/Header'
 import RequireAuth from './components/shared/RequireAuth'
-import Home from './components/Home'
+import Home from './components/pages/Home'
 import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
@@ -43,6 +43,10 @@ const App = () => {
 		return (
 			<Fragment>
 				<Header user={user} />
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/w7ejDZ8SWv8"
+				title="YouTube video player" frameborder="0" 
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+				allowfullscreen></iframe>
 				<Routes>
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
 					<Route
