@@ -14,6 +14,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 
+
 const App = () => {
 
   const [user, setUser] = useState(null)

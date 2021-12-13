@@ -1,11 +1,37 @@
 import React from 'react'
 
-export default function Comment() {
-    const [comment, setComment] = useState({
-        // we want to display comments in this state
-        //this will also be where new comments append onto
-            })
-    //helper methods
+function Comment() {
+    const [newComment, setNewComment] = useState({
+        postedBy: "",
+        commentText: "",
+        thumbnail: ""
+        })
+// we want to display comments in this state map
+
+//function to bring all comments belonging to a video
+//function to post a comment 
+const postComment = (e) => {
+    e.preventDefault()
+    let preJSONBody = {
+        postedBy: newComment.postedBy,
+        commentText: newComment.commentText,
+        thumbnail: newComment.thumbnail
+    }
+    fetch('http://localhost/comments',{
+        method: 'POST',
+        body: JSON.stringify(preJSONBody)
+    })
+    .then(response => response.json())
+    .then(postedComment =>{
+        props.refreshComments()
+        setNewComment({
+            postedBy: "",
+        commentText: "",
+        thumbnail: ""
+        })
+
+    })
+}
     // let user import comments from schema (findBy: video id) using a populate method
     // *** must alter the comment route/model***
 
@@ -21,3 +47,4 @@ export default function Comment() {
         </div>
     )
 }
+// export default Comment
