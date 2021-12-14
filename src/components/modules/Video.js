@@ -1,14 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from "react"
 
-export default function Video() {
+export default function Video(props) {
     const [video, setVideo] = useState (null)
+    // we will need to use, useParams in order to render detail pages....
 
     useEffect(()=>{
         getVideo()
     },[])
     //fetch request for videos by id
-    let vidId = "61b77772d4613ef30293b412"
+    let vidId = "61b8add7ba57f78173a24107"
     const getVideo = () => {
         fetch(`http://localhost:8000/videos/${vidId}`)
         .then(response=>{
@@ -19,37 +20,7 @@ export default function Video() {
             setVideo(foundVideos.Video)
         })
     }
-//     {
-//     _id: new ObjectId("61b77772d4613ef30293b412"),
-//     url: 'https://www.youtube.com/embed/Oe421EPjeBE',
-//     externalUrl: 'https://www.youtube.com/watch?v=Oe421EPjeBE',
-//     title: 'Node.js and Express.js - Full Course',
-//     owner: new ObjectId("61b4e7e40bef58034e60c584"),
-//     thumbnail: '',
-//     duration: '',
-//     categoryName: 'Express.js',
-//     comments: [],
-//     __v: 0
-//   }
-// const commentSchema = new mongoose.Schema(
-//   {
-//     postedBy: {
-//       // to create a reference, the type should be Object
-//       type: mongoose.Schema.Types.ObjectId,
-//       // ref is also needed, so we can poulate the owner
-//       ref: "User",
-//       // Note: Populate means replacing the owner id with the person document...
-//     },
-//     commentText: {
-//       type: String,
-//       required: true,
-//     },
-//     thumbnail: String, // Maybe better to pull it from the owner
-//   },
-//   {
-//     timestamps: true,
-//   }
-// )
+
 // if (video.videos.title !== ""){
 //     const comments = video.videos.comments.map((c, i)=>{
 //         console.log(c.commentText)

@@ -1,72 +1,59 @@
 import React from 'react'
-import Header from '../shared/Header'
 import { useState, useEffect} from 'react'
-
-
+import Spinner from 'react-bootstrap/Spinner'
 
 export default function Profile(props) {
      //states
     let userN = "61b71951505984e9ff9d54e4"
-    const [profile, setProfile] = useState ({
-            username: "",
-            comments: [],
-            videos: [],
-            followers:[],
-            following:[]
-    })
+    const [profile, setProfile] = useState(null)
 
+    //
+    // if a page is state dependent it might think i dropped state and be like it doesn't exist
     // fetching data
-    useEffect(()=>{
+    // useEffect( async ()=>{
+    //     // getUserProfile()
+    //     const response = await fetch(`http://localhost:8000/users/${userN}`)
+    //     const data = await response.json()
+    //     const { profile } = data
+    //     setProfile(profile)
+    //     console.table(data)
+    //     console.table(profile)
+
+
+    // },[])
+
+    useEffect(() => {
         getUserProfile()
     },[])
 
-
+    // component mounts, renders then makes the api call
     const getUserProfile = () => {
         fetch(`http://localhost:8000/users/${userN}`)
         .then(response => response.json())
         .then((foundUser) => {
             console.log("trying to render: ", foundUser)
             console.table(foundUser)
-            setProfile(foundUser)
+            setProfile(foundUser.profile) // <--- needs to be lowercase for me lmao
         })
         .catch(err => console.table(err))
     }
 
-
-
-    // console.log(profile)
-
-    //methods
-    //function that populates array from profile schema
-    //function that deletes an object from the array and updates state
-
-    //clickhandlers and other odds and ends 
-    // DISPLAY METHODS
-    // const userProfile = profile.map()
-    console.log(profile.username)
-
     return (
-       
+    <div>
+        {profile !== null ?
         <div>
-            <h1>{profile.Profile.username}</h1>
-            {/* {userProfile} */}
-            {/* {<header/>} */}
-            {/* <Videos/> */}
-            {/* ^This will contain a map of videos you've posted by id*/}
 
-            {/* {<comments/>} */}
-            {/* ^this will contain a map of comments you've posted by id */}
-
-            {/* <Followers/> */}
-            {/* ^this will return a map of users that follow you */}
-            {/* ^also return a count of followers */}
-
-            {/* <Following/> */}
-            {/* ^this will return a map of users that you follow */}
-            {/* ^also return a count of users you follow*/}
-
-            {/* <useful videos (maybe some kind of symbol)/> */}
-            {/* ^this will return a map of videos you've marked as useful */}
+        <h1>UserName: {profile.username}</h1>
+        <h1>OwnerId: {profile.owner}</h1>
+        <h1>created: {profile.createdAt}</h1>
+        <h1>updated: {profile.updatedAt}</h1>
         </div>
-    )
+        :
+        <div>
+        Profile hasn't loaded...
+        <Spinner animation="border" />
+        </div>
+        }
+</div>
+)
 }

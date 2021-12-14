@@ -45,7 +45,7 @@ const App = () => {
 		return (
       <Fragment>
         <Header user={user} />
-        <iframe
+        {/* <iframe
           width="560"
           height="315"
           src="https://www.youtube.com/embed/w7ejDZ8SWv8"
@@ -53,7 +53,7 @@ const App = () => {
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-        ></iframe>
+        ></iframe> */}
         <Routes>
           <Route path="/" element={<Home msgAlert={msgAlert} user={user} />} />
           <Route
@@ -84,6 +84,7 @@ const App = () => {
               </RequireAuth>
             }
           />
+
           <Route
             path="/change-password"
             element={
@@ -93,7 +94,7 @@ const App = () => {
             }
           />
         </Routes>
-        <Video />
+        {/* <Video /> */}
         {msgAlerts.map((msgAlert) => (
           <AutoDismissAlert
             key={msgAlert.id}
