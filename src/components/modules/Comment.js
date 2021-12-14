@@ -6,7 +6,6 @@ function Comment() {
         commentText: "",
         thumbnail: ""
         })
-// we want to display comments in this state map
 
 //function to bring all comments belonging to a video
 //function to post a comment 
@@ -17,7 +16,7 @@ const postComment = (e) => {
         commentText: newComment.commentText,
         thumbnail: newComment.thumbnail
     }
-    fetch('http://localhost/comments',{
+    fetch(`http://localhost:8000/comments/${videoId}`,{
         method: 'POST',
         body: JSON.stringify(preJSONBody)
     })
