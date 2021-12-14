@@ -29,7 +29,7 @@ const Home = (props) => {
 	if (allVideos !== null) {
 	allFoundVideos = allVideos.map((video, key)=> {
 		console.log(video)
-		return <li><Video2 index={key} url={video.url}/></li>
+		return <li><Video2 index={key} url={video.url} comments={video.comments}/></li>
 	})}
 
 

@@ -1,5 +1,5 @@
 // import React, { Component, Fragment } from 'react'
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
@@ -14,12 +14,46 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import Video from './components/modules/Video'
-
+import cors from 'cors'
 const App = () => {
 
   const [user, setUser] = useState(null)
   const [msgAlerts, setMsgAlerts] = useState([])
+  const [curProfile, setCurProfile] = useState(null)
 
+  // GETTING CUR USER
+  const getUserProfile = () => {
+    fetch(`http://localhost:8000/users`)
+    .then((response) => {
+      console.log("this is response to fetch: ", response)
+      console.log("this is user", user)
+      response.json()
+    })
+    .then(foundUserList => console.log("this is the list of profiles", foundUserList))
+    // .then((foundUserResponse) => {
+    //   let foundUser = foundUserResponse.filter((currUser)=>{
+    //     if ((user.id) === currUser.owner) {
+    //       console.log(currUser)
+    //       return currUser.owner
+    //     }
+    //   })}
+    // )
+    // .then((foundUserOwner) => {
+    //     console.log("trying to render: ", foundUserOwner)
+    //     console.table(foundUserOwner)
+    //     setCurProfile(foundUserOwner) // <--- needs to be lowercase for me lmao
+    // })
+    .catch(err => console.table(err))
+}
+
+  useEffect(()=>{
+    getUserProfile()
+  }, [])
+
+  
+  
+  
+  
   console.log('user in app', user)
   console.log('message alerts', msgAlerts)
   const clearUser = () => {
@@ -41,6 +75,11 @@ const App = () => {
       )
 		})
 	}
+  //upon sign in we should "pass down profile info with the user" as a prop to any component we want
+  // we refactor 
+  // 
+
+
 
 		return (
       <Fragment>
