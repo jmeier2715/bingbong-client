@@ -13,7 +13,7 @@ export default function Video2 (props) {
       let allcomments
       if (props.comments != null) {
       allcomments = props.comments.map((comment)=>{
-          console.log(comment)
+        //   console.log(comment)
           return (
               <div>
               <p>{comment.postedBy}</p>
@@ -25,7 +25,7 @@ export default function Video2 (props) {
         <p>Please add a comment...</p>
     }
 
-      console.log("is valid url", isValidUrl(props.url))
+    //   console.log("is valid url", isValidUrl(props.url))
       // This works...don't touch :*(
       if (isValidUrl(props.url) === true) {
           return(

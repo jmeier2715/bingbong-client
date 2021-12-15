@@ -16,7 +16,7 @@ export default function Video(props) {
             return response.json()
         })
         .then(foundVideos=>{
-            console.log("anything?", foundVideos.Video)
+            // console.log("anything?", foundVideos.Video)
             setVideo(foundVideos.Video)
         })
     }
