@@ -47,20 +47,19 @@ const App = () => {
 
 const getAllProfile = () => {
   if (user !== null) {
-    fetch(`http://localhost:8000/users${user._id}`)
+    fetch(`http://localhost:8000/users/${user._id}`)
     .then(response => response.json())
-
     .then((foundUserResponse) => {
-      // console.log("trying to render: ", foundUserResponse)
+      console.log("trying to render: ", foundUserResponse)
       let foundUser = foundUserResponse.profile.filter((cUser)=>{
         return user._id === cUser.owner })
       if (foundUser === null) {
         setCurProfile(null)
       }
       console.log("this would be the matching user..", foundUser)
-      setCurProfile(foundUser) 
+      setCurProfile(foundUser.json()) 
     })
-    .catch(err => console.table(err))
+    .catch(err => console.log(err))
 
   }
 }
