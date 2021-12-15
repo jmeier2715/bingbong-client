@@ -7,21 +7,28 @@ const linkStyle = {
     textDecoration: 'none'
 }
 const authenticatedOptions = (
-	<>
-		<Nav.Link>
-			<Link to="my-profile" style={linkStyle}>My Profile</Link>
-		</Nav.Link>
-		<Nav.Link>
-			<Link to='change-password' style={linkStyle}>
-				Change Password
-			</Link>
-		</Nav.Link>
-		<Nav.Link>
-			<Link to='sign-out' style={linkStyle}>
-				Sign Out
-			</Link>
-		</Nav.Link>
-	</>
+  <>
+    <Nav.Link>
+      <Link to="my-profile" style={linkStyle}>
+        My Profile
+      </Link>
+    </Nav.Link>
+    <Nav.Link>
+      <Link to="change-password" style={linkStyle}>
+        Change Password
+      </Link>
+    </Nav.Link>
+    <Nav.Link>
+      <Link to="sign-out" style={linkStyle}>
+        Sign Out
+      </Link>
+    </Nav.Link>
+    <Nav.Link>
+      <Link to="post-new-video" style={linkStyle}>
+        Post A Video
+      </Link>
+    </Nav.Link>
+  </>
 )
 
 const unauthenticatedOptions = (

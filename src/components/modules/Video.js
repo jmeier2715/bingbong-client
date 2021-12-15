@@ -9,7 +9,7 @@ export default function Video(props) {
         getVideo()
     },[])
     //fetch request for videos by id
-    let vidId = "61b8add7ba57f78173a24107"
+    let vidId = "61b77772d4613ef30293b412"
     const getVideo = () => {
         fetch(`http://localhost:8000/videos/${vidId}`)
         .then(response=>{
