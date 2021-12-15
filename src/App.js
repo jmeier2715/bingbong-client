@@ -15,6 +15,8 @@ import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import Video from './components/modules/Video'
 
+import Comment from './components/modules/Video'
+
 const App = () => {
 
   const [user, setUser] = useState(null)
