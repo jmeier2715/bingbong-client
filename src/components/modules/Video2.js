@@ -6,8 +6,45 @@ import Col from 'react-bootstrap/Col'
 import Toast from 'react-bootstrap/Toast'
 import Button from 'react-bootstrap/Button'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import Comment from './Comment'
 
 export default function Video2 (props) {
+    const [newComment, setNewComment] = useState({
+      postedBy: props.username,
+      commentText: "",
+      thumbnail: "",
+    })
+
+    //function to post a comment 
+    const postComment = (e) => {
+        e.preventDefault()
+        let preJSONBody = {
+            postedBy: newComment.postedBy,
+            commentText: newComment.commentText,
+            thumbnail: newComment.thumbnail
+        }
+        fetch(`http://localhost:8000/comments/${props.videoId}`, {
+        method: "POST",
+        body: JSON.stringify(preJSONBody),
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${props.user.token}`,
+        }
+            .then((response) => response.json())
+            .then((postedComment) => {
+            setNewComment({
+                postedBy: props.username,
+                commentText: "",
+                thumbnail: "",
+            })
+            })
+            .catch((err) => console.error()),
+        })
+    }
+        const handleCommentInputChange = (e) => {
+    setNewComment({ ...newComment, [e.target.name]: e.target.value })
+    // this is to see change and update current input value and assign it to NewVideo
+    }
     // console.log("these are the props in video2", props)
 
     // regex filter to allow us to determine what to display depending on true or false result!
@@ -33,41 +70,46 @@ export default function Video2 (props) {
 
     //   console.log("is valid url", isValidUrl(props.url))
       // This works...don't touch :*(
-      if (isValidUrl(props.url) === true) {
-          return(
-              <div>
-                {props.url !== null ? 
-                    <div>
-                    {/* <Col> */}
-                        <Card className="container">
-                        <iframe
-                        width="560"
-                        height="315"
-                        src={props.url}        
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        ></iframe>
-                        <Card.Body>
-                            <Card.Title>{props.title}</Card.Title>
-                        </Card.Body>
-                        <Button variant="primary" size="sm">Join the Discussion</Button>
-                        <ListGroup>
-                        {allcomments}
-                        </ListGroup>
-                        </Card>
-                    {/* </Col> */}
-            
-                    </div>  
-                    :
-                    <p>Loading...</p>}
+      console.log("these are the props", props);
+    const {url} = props
+      return (
+        isValidUrl(url)  ? 
+                <div>
+                  <Card className="container">
+                    <iframe
+                      width="560"
+                      height="315"
+                      src={props.url}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                    <Card.Body>
+                      <Card.Title>{props.title}</Card.Title>
+                    </Card.Body>
+                     <form onSubmit={postComment}>
+                        <div>
+                        <label htmlFor="comment">Type a comment:</label>
+                        <input
+                            type="text"
+                            name="comment"
+                            id="comment"
+                            onChange={handleCommentInputChange}
+                            value={newComment.commentText}
+                        />
+                        </div>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                    <ListGroup>{allcomments}</ListGroup>
+                  </Card>
+                  
                 </div>
-          )
-      } else {
-          return(
-              null
-          )
-      }
+         
+      : 
+           <p>Loading...</p>
+      
+        
+    )
+ }
 
-}

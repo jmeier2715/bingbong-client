@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-function Comment() {
+
+export default function Comment(props) {
     const [newComment, setNewComment] = useState({
-        postedBy: "",
+        postedBy: props.username,
         commentText: "",
-        thumbnail: ""
+        thumbnail: "",
         })
+
+
 
 //function to bring all comments belonging to a video
 //function to post a comment 
@@ -16,20 +19,27 @@ const postComment = (e) => {
         commentText: newComment.commentText,
         thumbnail: newComment.thumbnail
     }
-    fetch(`http://localhost:8000/comments/${videoId}`,{
-        method: 'POST',
-        body: JSON.stringify(preJSONBody)
-    })
-    .then(response => response.json())
-    .then(postedComment =>{
-        props.refreshComments()
-        setNewComment({
-            postedBy: "",
-        commentText: "",
-        thumbnail: ""
+    fetch(`http://localhost:8000/comments/${props.videoId}`, {
+      method: "POST",
+      body: JSON.stringify(preJSONBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${props.user.token}`,
+      }
+        .then((response) => response.json())
+        .then((postedComment) => {
+          setNewComment({
+            postedBy: props.username,
+            commentText: "",
+            thumbnail: "",
+          })
         })
-
+        .catch((err) => console.error()),
     })
+
+const handleInputChange = (e) => {
+  setNewComment({ ...newComment, [e.target.name]: e.target.value })
+  // this is to see change and update current input value and assign it to NewVideo
 }
     // let user import comments from schema (findBy: video id) using a populate method
     // *** must alter the comment route/model***
@@ -37,13 +47,19 @@ const postComment = (e) => {
     
 
     return (
+      <form onSubmit={postComment}>
         <div>
-            {/* some kind of input box to leave a new comment*/}
-            {/* {Comment} */}
-            {/* some kind of delete comment button (bc racism, sexism) */}
-
-            {/* ^this will show all the comments belonging to the given profile/video id */}
+          <label htmlFor="comment">Type a comment:</label>
+          <input
+            type="text"
+            name="comment"
+            id="comment"
+            onChange={handleInputChange}
+            value={newComment.commentText}
+          />
         </div>
-    )
+        <input type="submit" value="Submit"/>
+      </form>
+    )    
 }
-// export default Comment
+}
