@@ -45,9 +45,12 @@ const App = () => {
   
 //       },[])
 
+// WE STRINGIFY BODY OBJECTS WHEN SENDING POST REQUESTS
+// WHEN RETRIEVING RESPOSNES, WE PARSE IT INTO JSON...
+
 const getAllProfile = () => {
   if (user !== null) {
-    fetch(`http://localhost:8000/users/${user._id}`)
+    fetch(`http://localhost:8000/users/`)
     .then(response => response.json())
     .then((foundUserResponse) => {
       console.log("trying to render: ", foundUserResponse)
@@ -57,10 +60,10 @@ const getAllProfile = () => {
         setCurProfile(null)
       }
       console.log("this would be the matching user..", foundUser)
-      setCurProfile(foundUser.json()) 
-    })
+      setCurProfile(foundUser) 
+    }) // this promise is failing and i don't know why lmao...
     .catch(err => console.log(err))
-
+    // more unexpected behavior...now the token seems to work but I get a duplicate key error for the schema...which is unfortunate.
   }
 }
 
