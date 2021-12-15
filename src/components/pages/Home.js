@@ -16,34 +16,34 @@ const Home = (props) => {
 
 	const getAllVideos = () => {
         fetch(`http://localhost:8000/videos/`)
-        .then(response=>{
+        .then(response => {
             return response.json()
         })
-        .then(foundVideos=>{
-            // console.log("anything?", foundVideos.videos)
+        .then(foundVideos => {
+            console.log("anything?", foundVideos.videos)
             setAllVideos(foundVideos.videos)
 			// console.log("this is allVideos", allVideos)
 		})
-		.catch((error)=>{ 
+		.catch((error) => { 
 			console.log(error) })
     }
 
 	let allFoundVideos
 	if (allVideos !== null) {
-	allFoundVideos = allVideos.map((video, key)=> {
-		// console.log(video)
-		return (<Video2 index={key} url={video.url} comments={video.comments} title={video.title}/>)
+		allFoundVideos = allVideos.map((video, key)=> {
+			console.log("this is video id", video._id)
+			return (<Video2 index={key} url={video.url} comments={video.comments} title={video.title} curProfile={props.curProfile} videoId={video._id}  />)
 	})}
 
 
 	return (
 		<div>
-		{allVideos === null ? 
-			null :
-			<Row xs={1} md={1} className="g-4">
-				{allFoundVideos}
-			</Row>
-		}
+			{allVideos === null ? 
+				null :
+				<Row xs={1} md={1} className="g-4">
+					{allFoundVideos}
+				</Row>
+			}
 		</div>
 	)
 }

@@ -15,9 +15,10 @@ import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import Video from './components/modules/Video'
 import AddVideo from './components/modules/AddVideo'
+import Comment from './components/modules/Comment'
 
 
-import Comment from './components/modules/Video'
+
 
 const App = () => {
 
