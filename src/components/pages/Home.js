@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import Video2 from '../modules/Video2'
+import Card from 'react-bootstrap/Card'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const Home = (props) => {
 	// const { msgAlert, user } = props
@@ -7,7 +10,7 @@ const Home = (props) => {
 	// retrieving all videos
 	const [allVideos, setAllVideos] = useState(null)
 
-	useEffect(()=> {
+	useEffect(() => {
 		getAllVideos()
 	}, [])
 
@@ -17,9 +20,9 @@ const Home = (props) => {
             return response.json()
         })
         .then(foundVideos=>{
-            console.log("anything?", foundVideos.videos)
+            // console.log("anything?", foundVideos.videos)
             setAllVideos(foundVideos.videos)
-			console.log("this is allVideos", allVideos)
+			// console.log("this is allVideos", allVideos)
 		})
 		.catch((error)=>{ 
 			console.log(error) })
@@ -28,8 +31,8 @@ const Home = (props) => {
 	let allFoundVideos
 	if (allVideos !== null) {
 	allFoundVideos = allVideos.map((video, key)=> {
-		console.log(video)
-		return <li><Video2 index={key} url={video.url} comments={video.comments}/></li>
+		// console.log(video)
+		return (<Video2 index={key} url={video.url} comments={video.comments} title={video.title}/>)
 	})}
 
 
@@ -37,9 +40,9 @@ const Home = (props) => {
 		<div>
 		{allVideos === null ? 
 			null :
-			<ul>
+			<Row xs={1} md={1} className="g-4">
 				{allFoundVideos}
-			</ul>
+			</Row>
 		}
 		</div>
 	)

@@ -1,8 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from "react"
+import Card from 'react-bootstrap/Card'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Toast from 'react-bootstrap/Toast'
+import Button from 'react-bootstrap/Button'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
 
 export default function Video2 (props) {
-    console.log("these are the props in video2", props)
+    // console.log("these are the props in video2", props)
 
     // regex filter to allow us to determine what to display depending on true or false result!
     // so we need to write a condition that uses isValidUrl to return the video if it is valid, but return nothing if it is not valid...
@@ -15,10 +21,10 @@ export default function Video2 (props) {
       allcomments = props.comments.map((comment)=>{
         //   console.log(comment)
           return (
-              <div>
-              <p>{comment.postedBy}</p>
-              <p>{comment.commentText}</p>
-              </div>
+              <ListGroupItem>
+                  <small>{comment.postedBy}</small>
+                  <p>{comment.commentText}</p>
+              </ListGroupItem>
           )
       })
     } else {
@@ -32,7 +38,9 @@ export default function Video2 (props) {
               <div>
                 {props.url !== null ? 
                     <div>
-                    <iframe
+                    {/* <Col> */}
+                        <Card className="container">
+                        <iframe
                         width="560"
                         height="315"
                         src={props.url}        
@@ -41,8 +49,16 @@ export default function Video2 (props) {
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         ></iframe>
-                    <button>Join the Discussion</button>
-                    {allcomments}
+                        <Card.Body>
+                            <Card.Title>{props.title}</Card.Title>
+                        </Card.Body>
+                        <Button variant="primary" size="sm">Join the Discussion</Button>
+                        <ListGroup>
+                        {allcomments}
+                        </ListGroup>
+                        </Card>
+                    {/* </Col> */}
+            
                     </div>  
                     :
                     <p>Loading...</p>}
@@ -50,7 +66,7 @@ export default function Video2 (props) {
           )
       } else {
           return(
-              <div>Invalid link...</div>
+              null
           )
       }
 
