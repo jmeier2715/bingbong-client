@@ -14,6 +14,8 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import Video from './components/modules/Video'
+import AddVideo from './components/modules/AddVideo'
+
 
 import Comment from './components/modules/Video'
 
@@ -98,7 +100,7 @@ const getAllProfile = () => {
       <Fragment>
         <Header user={user} />
         <Routes>
-          <Route path="/" element={<Home msgAlert={msgAlert} user={user}  />} />
+          <Route path="/" element={<Home msgAlert={msgAlert} user={user} />} />
           <Route
             path="/sign-up"
             element={<SignUp msgAlert={msgAlert} setUser={setUser} />}
@@ -123,7 +125,23 @@ const getAllProfile = () => {
             path="my-profile"
             element={
               <RequireAuth user={user}>
-                <Profile getAllProfile={getAllProfile} curProfile={curProfile} user={user}/>
+                <Profile
+                  getAllProfile={getAllProfile}
+                  curProfile={curProfile}
+                  user={user}
+                />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="post-new-video"
+            element={
+              <RequireAuth user={user}>
+                <AddVideo 
+                  getAllProfile={getAllProfile}
+                  curProfile={curProfile}
+                  user={user}
+                />
               </RequireAuth>
             }
           />
