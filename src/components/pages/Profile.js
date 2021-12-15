@@ -13,7 +13,7 @@ export default function Profile(props) {
 
 
     useEffect(()=>{
-        // props.getAllProfile()
+        props.getAllProfile()
         console.log("did props reset down here?" , props.curProfile)
         console.log(props.curProfile.length)
     }, [])
@@ -25,16 +25,24 @@ export default function Profile(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault() 
-        let jsonPayload = {
-            username: createProfile.username,
-            owner: createProfile.owner
-        }
+        // let jsonPayload = {
+        //     username: createProfile.username,
+        //     owner: createProfile.owner
+        // }
         console.log(typeof(jsonPayload))
-        fetch('http://localhost:8000/users/',
+        fetch('http://localhost:8000/users',
         {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(jsonPayload)
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${props.user.token}`
+            },
+            body: JSON.stringify({
+                profile: {
+                username: createProfile.username,
+                owner: createProfile.owner
+                }
+            })
 
         })
         .then(()=>{
@@ -43,7 +51,7 @@ export default function Profile(props) {
                 owner: props.user._id
             })
             props.getAllProfile()
-        })
+        }) 
         .catch((error)=>{
             console.log("oh..you fucked up lmao", error)
         })
@@ -56,6 +64,7 @@ export default function Profile(props) {
 
         const errmsg = "The number should be 0"
             console.assert(props.curProfile.length === 0, {length: props.curProfile.length, errmsg: errmsg})
+            console.log("this is length before htiting the decision tree:", props.curProfile.length)
             return renderform = (
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -76,14 +85,18 @@ export default function Profile(props) {
             )
         } else if (props.curProfile.length === 1 && edit === false) {
             // if there is a curprof and edit is false then they just want display...
+            console.log("This is username:", props.curProfile[0].username)
             return renderform = (
                 <div>
-                    <h1>{props.curProfile.username}</h1>
-                    <h1>{props.curProfile.username}</h1>
-                    <h1>{props.curProfile.username}</h1>
+                    Current UserName: 
+                    <h1>{props.curProfile[0].username}</h1>
                 </div>
             )
         } else {
+            const errmsg = "The number should be 1"
+            const errmsg2 = "The number should be false"
+            console.assert(props.curProfile.length === 1, {length: props.curProfile.length, errmsg: errmsg})
+            console.assert(edit === false, {edit: edit, errmsg: errmsg2})
             return null
         }        
 }
