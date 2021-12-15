@@ -6,54 +6,120 @@ export default function Profile(props) {
      //states
     let userN = "61b71951505984e9ff9d54e4"
     const [profile, setProfile] = useState(null)
+    const [edit, setEdit] = useState(false)
+    const [createProfile, setCreateProfile] = useState({
+        username: '',
+        owner: props.user._id
+    })
 
-    //
-    // if a page is state dependent it might think i dropped state and be like it doesn't exist
-    // fetching data
-    // useEffect( async ()=>{
-    //     // getUserProfile()
-    //     const response = await fetch(`http://localhost:8000/users/${userN}`)
-    //     const data = await response.json()
-    //     const { profile } = data
-    //     setProfile(profile)
-    //     console.table(data)
-    //     console.table(profile)
 
 
     // },[])
+    // useEffect(()=>{
+    //     // props.getAllProfile()
+    //     console.log("did props reset down here?" , props.curProfile)
+    //     console.log(props.curProfile.length)
+    // }, [])
 
-    useEffect(() => {
-        getUserProfile()
-    },[])
 
-    // component mounts, renders then makes the api call
-    const getUserProfile = () => {
-        fetch(`http://localhost:8000/users/${userN}`)
-        .then(response => response.json())
-        .then((foundUser) => {
-            console.log("trying to render: ", foundUser)
-            console.table(foundUser)
-            setProfile(foundUser.profile) // <--- needs to be lowercase for me lmao
-        })
-        .catch(err => console.table(err))
+    const handleInputChange = (e) => {
+        setCreateProfile({...createProfile, [e.target.name]: e.target.value})
     }
 
-    return (
-    <div>
-        {profile !== null ?
-        <div>
-
-        <h1>UserName: {profile.username}</h1>
-        <h1>OwnerId: {profile.owner}</h1>
-        <h1>created: {profile.createdAt}</h1>
-        <h1>updated: {profile.updatedAt}</h1>
-        </div>
-        :
-        <div>
-        Profile hasn't loaded...
-        <Spinner animation="border" />
-        </div>
+    const handleSubmit = (e) => {
+        e.preventDefault() 
+        let jsonPayload = {
+            username: createProfile.username,
+            owner: createProfile.owner
         }
-</div>
-)
+        fetch('http://localhost:8000/users',
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/JSON'},
+            body: JSON.stringify(jsonPayload),
+
+        })
+        .then(()=>{
+            setCreateProfile({
+                username: '',
+                owner: props.user._id
+            })
+            props.getAllProfile()
+        })
+        .catch((error)=>{
+            console.log("oh..you fucked up lmao", error)
+        })
+    }
+
+    let renderform
+
+    if (props.curProfile.length === 0) {
+        // if there is no curprofile && edit is false then there must not be a profile at all
+
+        const errmsg = "The number should be 0"
+            console.assert(props.curProfile.length === 0, {length: props.curProfile.length, errmsg: errmsg})
+            return renderform = (
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username">Set Your Username: </label>
+                        <input type="text" name="username" id="username" onChange={handleInputChange}value={createProfile.username} />
+                        <input type="submit" value="Submit" />
+                    </form>
+
+                </div>
+            )
+        } else if (props.curProfile.length === 1 && edit == true) {
+            // if there is a curprof and edit is true then edit
+            return renderform = (
+                <div>
+                    Want to edit...
+                    <button> Edit </button>
+                </div>
+            )
+        } else if (props.curProfile.length === 1 && edit == false) {
+            // if there is a curprof and edit is false then they just want display...
+            return renderform = (
+                <div>
+                    ur info here...
+                </div>
+            )
+        }        
 }
+    
+
+
+
+
+
+
+
+
+
+    // component mounts, renders then makes the api call
+    // let render
+    // if ()
+
+    // if there is no profile...render a create profile form...
+    // else ( if there is a profile but user wants to change something...render edit form, this means that there would need to be a state determining whether or not the form is "edit" or display) else...render edit form...
+    // else
+
+
+
+//     return (
+//     <div>
+//         {profile !== null ?
+//         <div>
+
+//         <h1>UserName: {profile.username}</h1>
+//         <h1>OwnerId: {profile.owner}</h1>
+//         <h1>created: {profile.createdAt}</h1>
+//         <h1>updated: {profile.updatedAt}</h1>
+//         </div>
+//         :
+//         <div>
+//         Profile hasn't loaded...
+//         <Spinner animation="border" />
+//         </div>
+//         }
+// </div>
+// )
