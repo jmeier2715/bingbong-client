@@ -58,7 +58,7 @@ useEffect(() => {
 console.log('this is user', user)
 
 const getAllVideos = () => {
-      fetch(`http://localhost:8000/videos/`)
+      fetch(`${apiUrl}/videos/`)
       .then(response => {
           return response.json()
       })
@@ -73,7 +73,7 @@ const getAllVideos = () => {
 
 const getAllProfile = () => {
   if (user !== null) {
-    fetch(`http://localhost:8000/users/`)
+    fetch(`${apiUrl}/users/`)
     .then(response => response.json())
     .then((foundUserResponse) => {
       console.log("trying to render: ", foundUserResponse)
