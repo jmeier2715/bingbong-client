@@ -7,6 +7,7 @@ import Toast from 'react-bootstrap/Toast'
 import Button from 'react-bootstrap/Button'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Comment from './Comment'
+import apiUrl from '../../apiConfig'
 
 export default function Video2 (props) {
 
