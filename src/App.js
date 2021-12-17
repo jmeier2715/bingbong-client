@@ -26,34 +26,33 @@ const App = () => {
   const [msgAlerts, setMsgAlerts] = useState([])
   const [curProfile, setCurProfile] = useState([])
   const [allVideos, setAllVideos] = useState(null)
+  const [allComments, setAllComments] = useState(null)
+  const [updateToggle, setUpdateToggle] = useState(false)
 
 
-// build the forms
-// when creating a json payload, always initialize it to the current user
-// make sure nothing runs in app because the user isn't logged in technically...
-// Running it in profile...
 
-// THIS ASYNC STRATEGY WORKED...
-//   useEffect( async ()=>{
-//           const response = await fetch(`http://localhost:8000/users`)
-//           const data = await response.json()
-//           const { profile } = data
-
-//           // let foundUser = data.filter((user)=>{
-//           //   if ((user))
-//           // })
-//           setCurProfile(profile)
-//           console.table(data)
-//           console.table(profile)
-  
-//       },[])
-
-// WE STRINGIFY BODY OBJECTS WHEN SENDING POST REQUESTS
-// WHEN RETRIEVING RESPOSNES, WE PARSE IT INTO JSON...
 useEffect(() => {
   getAllVideos()
-  getAllProfile()
 }, [user])
+
+useEffect(()=> {
+  getAllComments()
+
+},[user])
+
+const getAllComments = () => {
+  fetch(`http://localhost:8000/comments`)
+  .then(response => {
+    return response.json()
+  })
+  .then(foundComments => {
+    console.log("these are comments?", foundComments.comment)
+    setAllComments(foundComments.comment)
+  })
+  .catch(error => console.log(error))
+}
+
+
 
 console.log('this is user', user)
 
@@ -160,6 +159,8 @@ const getAllProfile = () => {
                   getAllProfile={getAllProfile}
                   curProfile={curProfile}
                   user={user}
+                  allComments={allComments}
+                  getAllComments={getAllComments}
                 />
               </RequireAuth>
             }
