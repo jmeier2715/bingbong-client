@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect} from 'react'
 import App from '../../App'
+import apiUrl from '../../apiConfig'
+
 export default function Profile(props) {
 // `use strict`;
      //states
@@ -24,7 +26,7 @@ export default function Profile(props) {
 
     const deleteVideo = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:8000/videos/${e.target.id}`, {
+        fetch(`${apiUrl}/videos/${e.target.id}`, {
             method: "DELETE",
                 headers: {
                            "Content-Type": "application/json",
@@ -45,7 +47,7 @@ export default function Profile(props) {
         //     owner: createProfile.owner
         // }
         console.log(typeof(jsonPayload))
-        fetch('http://localhost:8000/users',
+        fetch(`${apiUrl}/users`,
         {
             method: "POST",
             headers: {
