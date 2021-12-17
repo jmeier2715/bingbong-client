@@ -22,7 +22,7 @@ export default function Video2 (props) {
         //   console.log(comment)
           return (
               <ListGroupItem>
-                  <small>{comment.postedBy}</small>
+                  <small>{comment.username}</small>
                   <p>{comment.commentText}</p>
               </ListGroupItem>
           )
