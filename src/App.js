@@ -16,7 +16,7 @@ import Profile from './components/pages/Profile'
 import Video from './components/modules/Video'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
-
+import apiUrl from './apiConfig'
 
 
 
