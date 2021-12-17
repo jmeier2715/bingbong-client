@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react"
+import apiUrl from '../../apiConfig'
 
 export default function Video(props) {
     const [video, setVideo] = useState (null)
@@ -11,7 +12,7 @@ export default function Video(props) {
     //fetch request for videos by id
     let vidId = "61b77772d4613ef30293b412"
     const getVideo = () => {
-        fetch(`http://localhost:8000/videos/${vidId}`)
+        fetch(`${apiUrl}/${vidId}`)
         .then(response=>{
             return response.json()
         })
