@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid';
+import apiUrl from '../../apiConfig'
 
 
 export default function Comment(props) {
@@ -32,7 +33,7 @@ export default function Comment(props) {
           commentText: newComment.commentText,
           thumbnail: newComment.thumbnail,
       }
-      fetch(`http://localhost:8000/comments/${props.videoId}`, {
+      fetch(`${apiUrl}/comments/${props.videoId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

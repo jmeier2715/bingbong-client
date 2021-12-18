@@ -1,4 +1,5 @@
 import React from 'react'
+import apiUrl from '../../apiConfig'
 
 export default function Sidebar() {
     return (

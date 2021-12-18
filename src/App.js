@@ -2,6 +2,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import apiUrl from './apiConfig'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
 import AutoDismissAlert from './components/shared/AutoDismissAlert/AutoDismissAlert'
@@ -13,7 +14,6 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
-import Video from './components/modules/Video'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
 
@@ -33,20 +33,18 @@ const App = () => {
 
 useEffect(() => {
   getAllVideos()
+  getAllProfile()
+  getAllComments()
 }, [user])
 
-useEffect(()=> {
-  getAllComments()
-
-},[user])
 
 const getAllComments = () => {
-  fetch(`http://localhost:8000/comments`)
+  fetch(`${apiUrl}/videos/`)
   .then(response => {
     return response.json()
   })
   .then(foundComments => {
-    console.log("these are comments?", foundComments.comment)
+    console.log("these are comments??? WHERE THIS: ", foundComments.comment)
     setAllComments(foundComments.comment)
   })
   .catch(error => console.log(error))
@@ -57,7 +55,7 @@ const getAllComments = () => {
 console.log('this is user', user)
 
 const getAllVideos = () => {
-      fetch(`http://localhost:8000/videos/`)
+      fetch(`${apiUrl}/videos/`)
       .then(response => {
           return response.json()
       })
@@ -72,7 +70,7 @@ const getAllVideos = () => {
 
 const getAllProfile = () => {
   if (user !== null) {
-    fetch(`http://localhost:8000/users/`)
+    fetch(`${apiUrl}/users/`)
     .then(response => response.json())
     .then((foundUserResponse) => {
       console.log("trying to render: ", foundUserResponse)

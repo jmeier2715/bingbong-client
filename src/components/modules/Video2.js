@@ -7,6 +7,7 @@ import Toast from 'react-bootstrap/Toast'
 import Button from 'react-bootstrap/Button'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Comment from './Comment'
+import apiUrl from '../../apiConfig'
 
 export default function Video2 (props) {
 
@@ -47,9 +48,11 @@ export default function Video2 (props) {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
+
                     <Card.Body>
                       <Card.Title>{props.title}</Card.Title>
                     </Card.Body>
+                    
                     <ListGroup>{allcomments}</ListGroup>
                   </Card>   
                 </div>
