@@ -2,6 +2,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import apiUrl from './apiConfig'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
 import AutoDismissAlert from './components/shared/AutoDismissAlert/AutoDismissAlert'
@@ -13,10 +14,9 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
-import Video from './components/modules/Video'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
-
+import apiUrl from './apiConfig'
 
 
 
@@ -26,39 +26,36 @@ const App = () => {
   const [msgAlerts, setMsgAlerts] = useState([])
   const [curProfile, setCurProfile] = useState([])
   const [allVideos, setAllVideos] = useState(null)
+  const [allComments, setAllComments] = useState(null)
+  const [updateToggle, setUpdateToggle] = useState(false)
 
 
-// build the forms
-// when creating a json payload, always initialize it to the current user
-// make sure nothing runs in app because the user isn't logged in technically...
-// Running it in profile...
 
-// THIS ASYNC STRATEGY WORKED...
-//   useEffect( async ()=>{
-//           const response = await fetch(`http://localhost:8000/users`)
-//           const data = await response.json()
-//           const { profile } = data
-
-//           // let foundUser = data.filter((user)=>{
-//           //   if ((user))
-//           // })
-//           setCurProfile(profile)
-//           console.table(data)
-//           console.table(profile)
-  
-//       },[])
-
-// WE STRINGIFY BODY OBJECTS WHEN SENDING POST REQUESTS
-// WHEN RETRIEVING RESPOSNES, WE PARSE IT INTO JSON...
 useEffect(() => {
   getAllVideos()
   getAllProfile()
+  getAllComments()
 }, [user])
+
+
+const getAllComments = () => {
+  fetch(`${apiUrl}/comments/`)
+  .then(response => {
+    return response.json()
+  })
+  .then(foundComments => {
+    console.log("these are comments??? WHERE THIS: ", foundComments.comment)
+    setAllComments(foundComments.comment)
+  })
+  .catch(error => console.log(error))
+}
+
+
 
 console.log('this is user', user)
 
 const getAllVideos = () => {
-      fetch(`http://localhost:8000/videos/`)
+      fetch(`${apiUrl}/videos/`)
       .then(response => {
           return response.json()
       })
@@ -73,7 +70,7 @@ const getAllVideos = () => {
 
 const getAllProfile = () => {
   if (user !== null) {
-    fetch(`http://localhost:8000/users/`)
+    fetch(`${apiUrl}/users/`)
     .then(response => response.json())
     .then((foundUserResponse) => {
       console.log("trying to render: ", foundUserResponse)
@@ -160,6 +157,8 @@ const getAllProfile = () => {
                   getAllProfile={getAllProfile}
                   curProfile={curProfile}
                   user={user}
+                  allComments={allComments}
+                  getAllComments={getAllComments}
                 />
               </RequireAuth>
             }

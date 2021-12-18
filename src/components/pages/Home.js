@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Comment from '../modules/Comment'
+import uuid from 'uuid'
+import apiUrl from '../../apiConfig'
 
 const Home = (props) => {
 	// const { msgAlert, user } = props

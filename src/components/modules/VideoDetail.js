@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Link from 'react-router-dom'
 import { useParams } from 'react-router'
+import apiUrl from '../../apiConfig'
 
 export default function VideoDetail (props) {
     /* things we have that we will need in state */
@@ -17,7 +18,7 @@ export default function VideoDetail (props) {
     const getAllComments = (props) => {
         // url pattern is /comments/:videoid/:commentid
         // url /comments/:videoid (for index of all comment attach to vide)
-        fetch(`http://localhost:8000/comments/${props.id}`)
+        fetch(`${apiUrl}/comments/${props.id}`)
         .then(response=>{
             return response.json()
         })

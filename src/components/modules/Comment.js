@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { v4 as uuid } from 'uuid';
 
 
 export default function Comment(props) {
@@ -22,14 +23,16 @@ export default function Comment(props) {
       console.log ('this is video id', props.videoId)
       // console.log('this is userid', props)
       console.log('this is commenttext', newComment)
-      
+      let uuidhack
+      uuidhack = uuid();
+      console.log("this is uuidhack", uuidhack)
       let preJSONBody = {
           postedBy: props.userId,
           username: props.userId.email,  
           commentText: newComment.commentText,
           thumbnail: newComment.thumbnail,
       }
-      fetch(`http://localhost:8000/comments/${props.videoId}`, {
+      fetch(`${apiUrl}/comments/${props.videoId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
