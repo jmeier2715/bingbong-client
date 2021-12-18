@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import apiUrl from '../../apiConfig'
 =======
 import { v4 as uuid } from 'uuid';
+import apiUrl from '../../apiConfig'
 
 >>>>>>> e1ac4ac67f0d5eceefe1e0c8e3ee191b1e80c1d0
 

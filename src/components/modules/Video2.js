@@ -48,9 +48,11 @@ export default function Video2 (props) {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
+
                     <Card.Body>
                       <Card.Title>{props.title}</Card.Title>
                     </Card.Body>
+                    
                     <ListGroup>{allcomments}</ListGroup>
                   </Card>   
                 </div>

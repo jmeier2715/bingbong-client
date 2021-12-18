@@ -2,6 +2,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import apiUrl from './apiConfig'
 
 // import AuthenticatedRoute from './components/shared/AuthenticatedRoute'
 import AutoDismissAlert from './components/shared/AutoDismissAlert/AutoDismissAlert'
@@ -13,7 +14,6 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
-import Video from './components/modules/Video'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
 import apiUrl from './apiConfig'
@@ -33,20 +33,18 @@ const App = () => {
 
 useEffect(() => {
   getAllVideos()
+  getAllProfile()
+  getAllComments()
 }, [user])
 
-useEffect(()=> {
-  getAllComments()
-
-},[user])
 
 const getAllComments = () => {
-  fetch(`${apiUrl}/comments`)
+  fetch(`${apiUrl}/comments/`)
   .then(response => {
     return response.json()
   })
   .then(foundComments => {
-    console.log("these are comments?", foundComments.comment)
+    console.log("these are comments??? WHERE THIS: ", foundComments.comment)
     setAllComments(foundComments.comment)
   })
   .catch(error => console.log(error))
