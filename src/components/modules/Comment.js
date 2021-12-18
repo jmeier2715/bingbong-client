@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
+<<<<<<< HEAD
 import apiUrl from '../../apiConfig'
+=======
+import { v4 as uuid } from 'uuid';
+
+>>>>>>> e1ac4ac67f0d5eceefe1e0c8e3ee191b1e80c1d0
 
 export default function Comment(props) {
   const [newComment, setNewComment] = useState({   
@@ -22,7 +27,9 @@ export default function Comment(props) {
       console.log ('this is video id', props.videoId)
       // console.log('this is userid', props)
       console.log('this is commenttext', newComment)
-      
+      let uuidhack
+      uuidhack = uuid();
+      console.log("this is uuidhack", uuidhack)
       let preJSONBody = {
           postedBy: props.userId,
           username: props.userId.email,  
