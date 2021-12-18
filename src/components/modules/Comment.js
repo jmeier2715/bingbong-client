@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { v4 as uuid } from 'uuid';
+import apiUrl from '../../apiConfig';
 
 
 export default function Comment(props) {

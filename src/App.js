@@ -39,12 +39,12 @@ useEffect(() => {
 
 
 const getAllComments = () => {
-  fetch(`${apiUrl}/comments/`)
+  fetch(`${apiUrl}/videos/`)
   .then(response => {
     return response.json()
   })
   .then(foundComments => {
-    console.log("these are comments??? WHERE THIS: ", foundComments.comment)
+    console.log("these are comments??? WHERE THIS: ", foundComments)
     setAllComments(foundComments.comment)
   })
   .catch(error => console.log(error))
