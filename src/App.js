@@ -39,7 +39,7 @@ useEffect(() => {
 
 
 const getAllComments = () => {
-  fetch(`${apiUrl}/videos/`)
+  fetch(`${apiUrl}/comments/`)
   .then(response => {
     return response.json()
   })
