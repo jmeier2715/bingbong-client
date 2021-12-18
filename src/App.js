@@ -16,7 +16,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
-import apiUrl from './apiConfig'
+
 
 
 
