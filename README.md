@@ -37,5 +37,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/m
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 # bingbong-video-client
+<<<<<<< HEAD
+
+
+words at the bottom of readme -Derrick
+=======
 goro comment
 dkfjlslsdlskjfklafjaslf;jasfas;k
+>>>>>>> 108580e8ee86ee1849fe129d9d0e400af33c07c1

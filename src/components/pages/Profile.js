@@ -64,8 +64,8 @@ export default function Profile(props) {
             .catch(error => console.error)
     }
 
-
-    let userComments = props.allComments.map((uCom)=>{
+    
+    let userComments = props.allVideos.map((uCom)=>{
 
         let filterFilter = uCom.comments.filter((uCom)=>{
             console.log(uCom)
@@ -81,25 +81,23 @@ export default function Profile(props) {
     // db.comments.deleteOne({uuid: req.body.uuid})
 
 
-    let userComMap = userComments[0].map((comment)=>{
-        console.log("usermap comment", comment)
-        console.log(comment._id)
-        return <div>
-                {comment.commentText}
-                <form 
-                id= {comment._id}
-                onSubmit= {deleteComment}>
-                    <button
-                        type= "submit"
-                        value= "Submit"
-                        >
-                        Delete
-                    </button>
-                </form>
-               </div>
-    }) 
+      let userComMap = userComments.map((comment) => {
+        return comment.map((text) => {
+          return (
+            <div>
+              {text.commentText}
+              <form id={text._id} onSubmit={deleteComment}>
+                <button type="submit" value="Submit">
+                  Delete
+                </button>
+              </form>
+            </div>
+          )
+        })
+      })
 
-    console.log('profile all videos', props.allVideos)
+
+    console.log('props in profile', props)
     const handleSubmit = (e) => {
         e.preventDefault() 
         // let jsonPayload = {
@@ -139,7 +137,8 @@ export default function Profile(props) {
     let userVideos = props.allVideos.filter((uVideo)=>{
         return props.user._id === uVideo.owner })
         console.log( 'user videos', userVideos)
-
+    
+    
     const handleVideoInputChange = (e) =>{
             setEditVideo({ ...editVideo, [e.target.name]: e.target.value })
             // this is to see change and update current input value and assign it to NewVideo
