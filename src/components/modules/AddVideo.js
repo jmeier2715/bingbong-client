@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import apiUrl from '../../apiConfig'
 export default function AddVideo (props) {
 const [newVideo, setNewVideo] = useState ({
     url: '',
@@ -23,7 +23,7 @@ const postVideo =(e)=>{
       categoryName: newVideo.categoryName,
       comments: [],
     }
-    fetch("http://localhost:8000/videos", {
+    fetch(`${apiUrl}/videos`, {
         method: 'POST',
         body: JSON.stringify(preJSONBody),
         headers: {

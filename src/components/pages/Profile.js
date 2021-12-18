@@ -2,7 +2,10 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import App from '../../App'
 import uuid from 'uuid'
+import apiUrl from '../../apiConfig'
+
 export default function Profile(props) {
+    console.log(props)
 // `use strict`;
      //states
     const [profile, setProfile] = useState(null)
@@ -11,6 +14,15 @@ export default function Profile(props) {
         username: '',
         owner: props.user._id
     })
+    const [editVideo, setEditVideo] = useState({
+        title: '',
+        categoryName: '',
+    })
+    const [editFormDisplay, setEditFormDisplay] = useState(false)
+
+    const editFormToggle = (e) => {
+        editFormDisplay ? setEditFormDisplay(false) : setEditFormDisplay(true)
+    }
 
     useEffect(()=>{
         props.getAllProfile()
@@ -23,9 +35,11 @@ export default function Profile(props) {
         setCreateProfile({...createProfile, [e.target.name]: e.target.value})
     }
 
+
+
     const deleteVideo = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:8000/videos/${e.target.id}`, {
+        fetch(`${apiUrl}/videos/${e.target.id}`, {
             method: "DELETE",
                 headers: {
                            "Content-Type": "application/json",
@@ -39,7 +53,7 @@ export default function Profile(props) {
 
     const deleteComment = (e) => {
         e.preventDefault()
-        fetch(`http://localhost:800/comments/${e.target.id}`, {
+        fetch(`${apiUrl}/comments/${e.target.id}`, {
             method: "DELETE",
                 headers: {
                            "Content-Type": "application/json",
@@ -49,6 +63,7 @@ export default function Profile(props) {
             .then(() => props.getAllComments())
             .catch(error => console.error)
     }
+
 
     let userComments = props.allComments.map((uCom)=>{
 
@@ -62,17 +77,6 @@ export default function Profile(props) {
         console.log("this is usercom:", filterFilter)
         return filterFilter
     })
-
-    // console.log("this usercom outside", userComments[0][0].commentText)
-    // let UserComMap = userComments.map((comment)=>{
-    //     <li>{comment.commentText}</li>
-    // })
-
-    // findbyusername findbytext in backend
-    // db.comments.find({
-    //     "username" : req.body.username,
-    //     "commentText" : req.body.commentText,
-    // })
 
     // db.comments.deleteOne({uuid: req.body.uuid})
 
@@ -95,17 +99,6 @@ export default function Profile(props) {
                </div>
     }) 
 
-
-
-
-
-
-
-
-
-
-
-
     console.log('profile all videos', props.allVideos)
     const handleSubmit = (e) => {
         e.preventDefault() 
@@ -114,7 +107,7 @@ export default function Profile(props) {
         //     owner: createProfile.owner
         // }
         console.log(typeof(jsonPayload))
-        fetch('http://localhost:8000/users',
+        fetch(`${apiUrl}/users`,
         {
             method: "POST",
             headers: {
@@ -141,26 +134,69 @@ export default function Profile(props) {
         })
     }
 
+
+
     let userVideos = props.allVideos.filter((uVideo)=>{
         return props.user._id === uVideo.owner })
         console.log( 'user videos', userVideos)
 
+    const handleVideoInputChange = (e) =>{
+            setEditVideo({ ...editVideo, [e.target.name]: e.target.value })
+            // this is to see change and update current input value and assign it to NewVideo
+    }
+
+    const editVideoForm = (e) => {
+    e.preventDefault()
+    let preJSONBody = {
+        title: '',
+        categoryName: ''
+    }
+    fetch(`${apiUrl}/videos/${e.target.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(preJSONBody),
+        headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${props.user.token}`
+    }
+    })
+        .then(response=>response.json())
+        .then(editedVideo=>{
+            // get all videos again 
+            setEditVideo({
+            title: '',
+            categoryName: ''
+            }) 
+        })
+        .catch(err=>console.error)
+    }
+
+
+
+
+
+
+    
 
     let userMap = userVideos.map((video)=>{
-        return <div>
-                {video.title}
-                <form 
-                id= {video._id}
-                onSubmit= {deleteVideo}>
-                    <button
-                        type= "submit"
-                        value= "Submit"
-                        >
-                        Delete
-                    </button>
-                </form>
-               </div>
-    }) 
+        return ( 
+                        <div>
+                        {video.title}
+                        <form 
+                            id= {video._id}
+                            onSubmit= {deleteVideo}>
+                                <button
+                                    type= "submit"
+                                    value= "Submit"
+                                    >
+                                    Delete
+                                </button>
+                            </form>
+                            <button onClick={editFormToggle}> Edit </button>
+                        </div>
+)})
+                    
+
+			
     let renderform
 
     if (props.curProfile.length === 0) {
@@ -184,7 +220,7 @@ export default function Profile(props) {
             return renderform = (
                 <div>
                     Want to edit...
-                    <button> Edit </button>
+                    
                 </div>
             )
         } else if (props.curProfile.length === 1 && edit === false) {
@@ -207,4 +243,4 @@ export default function Profile(props) {
             return null
         }        
 
-    }
+}
