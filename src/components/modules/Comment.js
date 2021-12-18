@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
-<<<<<<< HEAD
-import apiUrl from '../../apiConfig'
-=======
 import { v4 as uuid } from 'uuid';
-import apiUrl from '../../apiConfig'
 
->>>>>>> e1ac4ac67f0d5eceefe1e0c8e3ee191b1e80c1d0
 
 export default function Comment(props) {
   const [newComment, setNewComment] = useState({   
