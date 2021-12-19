@@ -59,15 +59,14 @@ export default function Comment(props) {
     
 
     return (
-      <form onSubmit={postComment}>
+      <form className="commentsubmit" onSubmit={postComment}>
           <div>
-          <label htmlFor="comment">Type a comment:</label>
           <input
               type="text"
               name="commentText"
               id="comment"
               onChange={handleCommentInputChange}
-              value={newComment.commentText}
+              value={newComment.commentText} placeholder="add a comment..."
           />
           
           </div>

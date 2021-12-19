@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&display=swap');
+
+.pagetitle {
+    font-family: Poppins;
+    margin-left: 10px;
+    font-size: 2.5rem;
+}
+
+.videowrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.submitcomment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 15px;
+}
+
+
+/* OVERRIDE BOOTSTRAP */
+.card {
+    padding: 10px 10px;
+}
+
+p {
+    font-family: "Work Sans"
+}
+
+small {
+    
+}
+
+.commentlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-primary {
+    background-color: #0047BB;
+}
+
+.list-group-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.commentsubmit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

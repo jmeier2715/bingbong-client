@@ -16,6 +16,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import Profile from './components/pages/Profile'
 import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
+import EditVideo from './components/modules/EditVideo'
 
 
 
@@ -28,6 +29,8 @@ const App = () => {
   const [allVideos, setAllVideos] = useState(null)
   const [allComments, setAllComments] = useState(null)
   const [updateToggle, setUpdateToggle] = useState(false)
+
+
 
 
 
@@ -163,6 +166,7 @@ const getAllProfile = () => {
               </RequireAuth>
             }
           />
+           <Route path="/edit/:id" element={<EditVideo allVideos={allVideos}/> } />
           <Route
             path="post-new-video"
             element={
