@@ -15,6 +15,10 @@ const handleInputChange = (e) =>{
     // this is to see change and update current input value and assign it to NewVideo
 }
 
+useEffect(()=>{
+  props.getAllVideos()
+}, [])
+
 const postVideo =(e)=>{
     e.preventDefault()
     let preJSONBody = {

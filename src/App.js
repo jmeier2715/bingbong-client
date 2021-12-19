@@ -30,6 +30,8 @@ const App = () => {
   const [allComments, setAllComments] = useState(null)
   const [updateToggle, setUpdateToggle] = useState(false)
 
+  // Perhaps it would be less complicated to do a get UserVideo Here?
+  
 
 
 
@@ -38,7 +40,7 @@ useEffect(() => {
   getAllVideos()
   getAllProfile()
   getAllComments()
-}, [user])
+}, [])
 
 
 const getAllComments = () => {
@@ -63,6 +65,7 @@ const getAllVideos = () => {
           return response.json()
       })
       .then(foundVideos => {
+        console.log("this is foundvideos", foundVideos)
           console.log("anything?", foundVideos.videos)
           setAllVideos(foundVideos.videos)
     // console.log("this is allVideos", allVideos)
@@ -166,7 +169,7 @@ const getAllProfile = () => {
               </RequireAuth>
             }
           />
-           <Route path="/edit/:id" element={<EditVideo allVideos={allVideos}/> } />
+           <Route path="/edit/:id" element={<EditVideo allVideos={allVideos} user={user} getAllVideos={getAllVideos}/> } />
           <Route
             path="post-new-video"
             element={
@@ -174,6 +177,7 @@ const getAllProfile = () => {
                 <AddVideo
                   refreshVideos={getAllVideos}
                   getAllProfile={getAllProfile}
+                  getAllVideos={getAllVideos}
                   curProfile={curProfile}
                   user={user}
                 />

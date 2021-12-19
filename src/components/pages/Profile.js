@@ -18,6 +18,7 @@ export default function Profile(props) {
         username: '',
         owner: props.user._id
     })
+    
     // Video States
     const [editVideo, setEditVideo] = useState({
         title: '',
@@ -31,6 +32,7 @@ export default function Profile(props) {
 
     useEffect(()=>{
         props.getAllProfile()
+        props.getAllVideos()
         console.log("did props reset down here?" , props.curProfile)
     }, [])
 
@@ -178,22 +180,22 @@ export default function Profile(props) {
     }
 
     let userMap = userVideos.map((video, index)=>{
-        console.log(video)
+        console.log("sanity check video id", video)
         return ( 
-                        <div>
-                        {video.title}
-                        <form 
-                            id= {video._id}
-                            onSubmit= {deleteVideo}>
-                                <button
-                                    type= "submit"
-                                    value= "Submit"
-                                    >
-                                    Delete
-                                </button>
-                            </form>
-                            <Link to={`/edit/${video._id}`} video={video} key={video._id}  handleVideoInputChange={handleVideoInputChange} > Edit </Link>
-                        </div>
+                <div>
+                {video.title}
+                <form 
+                    id= {video._id}
+                    onSubmit= {deleteVideo}>
+                        <button
+                            type= "submit"
+                            value= "Submit"
+                            >
+                            Delete
+                        </button>
+                    </form>
+                    <Link to={`/edit/${video._id}`} video={video} key={video._id}  handleVideoInputChange={handleVideoInputChange} > Edit </Link>
+                </div>
 )})
                     
 			
