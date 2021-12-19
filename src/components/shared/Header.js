@@ -3,16 +3,23 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import apiUrl from '../../apiConfig'
+import '../../layout/App.css'
 
 const linkStyle = {
     color: 'white',
-    textDecoration: 'none'
-}
+    textDecoration: 'none',
+    fontFamily: 'poppins',
+  }
 const authenticatedOptions = (
   <>
     <Nav.Link>
       <Link to="my-profile" style={linkStyle}>
         My Profile
+      </Link>
+    </Nav.Link>    
+    <Nav.Link>
+      <Link to="post-new-video" style={linkStyle}>
+        Post A Video +
       </Link>
     </Nav.Link>
     <Nav.Link>
@@ -25,11 +32,7 @@ const authenticatedOptions = (
         Sign Out
       </Link>
     </Nav.Link>
-    <Nav.Link>
-      <Link to="post-new-video" style={linkStyle}>
-        Post A Video
-      </Link>
-    </Nav.Link>
+
   </>
 )
 
@@ -55,10 +58,10 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
+	<Navbar style={{backgroundColor: "#0047BB"}} variant='dark' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                <h1 className="pagetitle">WatchCodeo</h1>
             </Link>
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />

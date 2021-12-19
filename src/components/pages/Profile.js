@@ -2,18 +2,23 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import App from '../../App'
 import uuid from 'uuid'
+import { Link } from 'react-router-dom'
 import apiUrl from '../../apiConfig'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 export default function Profile(props) {
     console.log(props)
 // `use strict`;
      //states
-    const [profile, setProfile] = useState(null)
+     // Profile States
     const [edit, setEdit] = useState(false)
     const [createProfile, setCreateProfile] = useState({
         username: '',
         owner: props.user._id
     })
+    // Video States
     const [editVideo, setEditVideo] = useState({
         title: '',
         categoryName: '',
@@ -27,7 +32,6 @@ export default function Profile(props) {
     useEffect(()=>{
         props.getAllProfile()
         console.log("did props reset down here?" , props.curProfile)
-        console.log(props.curProfile.length)
     }, [])
 
 
@@ -48,8 +52,7 @@ export default function Profile(props) {
             })
             .then(() => props.getAllVideos()) 
             .catch(error => console.error())
-        // console.log("delete Video target", e.target.value
-        }
+    }
 
     const deleteComment = (e) => {
         e.preventDefault()
@@ -61,7 +64,7 @@ export default function Profile(props) {
                          },
             })
             .then(() => props.getAllComments())
-            .catch(error => console.error)
+            .catch(error => console.log(error))
     }
 
     
@@ -83,15 +86,22 @@ export default function Profile(props) {
 
       let userComMap = userComments.map((comment) => {
         return comment.map((text) => {
+            console.log(text)
           return (
-            <div>
-              {text.commentText}
-              <form id={text._id} onSubmit={deleteComment}>
+
+            <Form id={text._id} onSubmit={deleteComment}>
+                <Form.Group as={Row} className="mb-3" controlId="text">
+                <Form.Label column sm="2">
+                    Video Comment:
+                </Form.Label>
+                <Col sm="10">
+                    <Form.Control plaintext readOnly value={text.commentText}/>
+                </Col>
+                </Form.Group>
                 <button type="submit" value="Submit">
-                  Delete
+                    Delete
                 </button>
-              </form>
-            </div>
+          </Form>
           )
         })
       })
@@ -132,8 +142,6 @@ export default function Profile(props) {
         })
     }
 
-
-
     let userVideos = props.allVideos.filter((uVideo)=>{
         return props.user._id === uVideo.owner })
         console.log( 'user videos', userVideos)
@@ -169,14 +177,8 @@ export default function Profile(props) {
         .catch(err=>console.error)
     }
 
-
-
-
-
-
-    
-
-    let userMap = userVideos.map((video)=>{
+    let userMap = userVideos.map((video, index)=>{
+        console.log(video)
         return ( 
                         <div>
                         {video.title}
@@ -190,11 +192,10 @@ export default function Profile(props) {
                                     Delete
                                 </button>
                             </form>
-                            <button onClick={editFormToggle}> Edit </button>
+                            <Link to={`/edit/${video._id}`} video={video} key={video._id}  handleVideoInputChange={handleVideoInputChange} > Edit </Link>
                         </div>
 )})
                     
-
 			
     let renderform
 
@@ -218,7 +219,7 @@ export default function Profile(props) {
             // if there is a curprof and edit is true then edit
             return renderform = (
                 <div>
-                    Want to edit...
+                    Look Ma, We're e
                     
                 </div>
             )

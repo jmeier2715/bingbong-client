@@ -11,8 +11,6 @@ import apiUrl from '../../apiConfig'
 
 export default function Video2 (props) {
 
-    // // regex filter to allow us to determine what to display depending on true or false result!
-    // // so we need to write a condition that uses isValidUrl to return the video if it is valid, but return nothing if it is not valid...
     const isValidUrl = (_string) => {
         const matchpattern = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/gm;
         return matchpattern.test(_string);
@@ -22,7 +20,7 @@ export default function Video2 (props) {
       allcomments = props.comments.map((comment)=>{
         //   console.log(comment)
           return (
-              <ListGroupItem>
+              <ListGroupItem className="commentlist">
                   <small>{comment.username}</small>
                   <p>{comment.commentText}</p>
               </ListGroupItem>
@@ -48,10 +46,10 @@ export default function Video2 (props) {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
-
                     <Card.Body>
-                      <Card.Title>{props.title}</Card.Title>
+                      <Card.Title style={{fontFamily: "Work Sans"}}>{props.title}</Card.Title>
                     </Card.Body>
+                    
                     
                     <ListGroup>{allcomments}</ListGroup>
                   </Card>   
