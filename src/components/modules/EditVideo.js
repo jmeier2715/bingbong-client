@@ -54,7 +54,7 @@ export default function EditVideo(props) {
 }
     // console.log("this is editvideo", props.allVideos)
 
-    (props)
+    // (props)
 
     // console.log(userVideo)
 
