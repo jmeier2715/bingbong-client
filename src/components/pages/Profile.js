@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 export default function Profile(props) {
-    console.log(props)
+    // console.log(props)
 // `use strict`;
      //states
      // Profile States
@@ -33,15 +33,13 @@ export default function Profile(props) {
     useEffect(()=>{
         props.getAllProfile()
         props.getAllVideos()
-        console.log("did props reset down here?" , props.curProfile)
+        // console.log("did props reset down here?" , props.curProfile)
     }, [])
 
 
     const handleInputChange = (e) => {
         setCreateProfile({...createProfile, [e.target.name]: e.target.value})
     }
-
-
 
     const deleteVideo = (e) => {
         e.preventDefault()
@@ -69,17 +67,16 @@ export default function Profile(props) {
             .catch(error => console.log(error))
     }
 
-    
     let userComments = props.allVideos.map((uCom)=>{
 
         let filterFilter = uCom.comments.filter((uCom)=>{
-            console.log(uCom)
+        // console.log(uCom)
         // const obj = uCom
         // const {0} = obj
         // console.log(obj)
         return props.user.email === uCom.username
         })
-        console.log("this is usercom:", filterFilter)
+        // console.log("this is usercom:", filterFilter)
         return filterFilter
     })
 
@@ -88,7 +85,7 @@ export default function Profile(props) {
 
       let userComMap = userComments.map((comment) => {
         return comment.map((text) => {
-            console.log(text)
+            // console.log(text)
           return (
 
             <Form id={text._id} onSubmit={deleteComment}>
@@ -109,14 +106,14 @@ export default function Profile(props) {
       })
 
 
-    console.log('props in profile', props)
+    // console.log('props in profile', props)
     const handleSubmit = (e) => {
         e.preventDefault() 
         // let jsonPayload = {
         //     username: createProfile.username,
         //     owner: createProfile.owner
         // }
-        console.log(typeof(jsonPayload))
+        // console.log(typeof(jsonPayload))
         fetch(`${apiUrl}/users`,
         {
             method: "POST",
@@ -140,13 +137,13 @@ export default function Profile(props) {
             props.getAllProfile()
         }) 
         .catch((error)=>{
-            console.log("oh..you fucked up lmao", error)
+            // console.log("oh..you fucked up lmao", error)
         })
     }
 
     let userVideos = props.allVideos.filter((uVideo)=>{
         return props.user._id === uVideo.owner })
-        console.log( 'user videos', userVideos)
+        // console.log( 'user videos', userVideos)
     
     
     const handleVideoInputChange = (e) =>{
@@ -180,7 +177,7 @@ export default function Profile(props) {
     }
 
     let userMap = userVideos.map((video, index)=>{
-        console.log("sanity check video id", video)
+        // console.log("sanity check video id", video)
         return ( 
                 <div>
                 {video.title}
@@ -206,7 +203,7 @@ export default function Profile(props) {
 
         const errmsg = "The number should be 0"
             console.assert(props.curProfile.length === 0, {length: props.curProfile.length, errmsg: errmsg})
-            console.log("this is length before htiting the decision tree:", props.curProfile.length)
+            // console.log("this is length before htiting the decision tree:", props.curProfile.length)
             return renderform = (
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -227,7 +224,7 @@ export default function Profile(props) {
             )
         } else if (props.curProfile.length === 1 && edit === false) {
             // if there is a curprof and edit is false then they just want display...
-            console.log("This is username:", props.curProfile[0].username)
+            // console.log("This is username:", props.curProfile[0].username)
             return renderform = (
                 <div>
                     Current UserName: 

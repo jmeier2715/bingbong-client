@@ -16,17 +16,17 @@ export default function Comment(props) {
     // this is to see change and update current input value and assign it to NewVideo
     }
 
-    console.log('comment props', props)
+    // console.log('comment props', props)
 
   //function to post a comment 
   const postComment = (e) => {
       e.preventDefault()
-      console.log ('this is video id', props.videoId)
+      // console.log ('this is video id', props.videoId)
       // console.log('this is userid', props)
-      console.log('this is commenttext', newComment)
+      // console.log('this is commenttext', newComment)
       let uuidhack
       uuidhack = uuid();
-      console.log("this is uuidhack", uuidhack)
+      // console.log("this is uuidhack", uuidhack)
       let preJSONBody = {
           postedBy: props.userId,
           username: props.userId.email,  

@@ -18,9 +18,6 @@ import AddVideo from './components/modules/AddVideo'
 import Comment from './components/modules/Comment'
 import EditVideo from './components/modules/EditVideo'
 
-
-
-
 const App = () => {
 
   const [user, setUser] = useState(null)
@@ -31,10 +28,6 @@ const App = () => {
   const [updateToggle, setUpdateToggle] = useState(false)
 
   // Perhaps it would be less complicated to do a get UserVideo Here?
-  
-
-
-
 
 useEffect(() => {
   getAllVideos()
@@ -42,22 +35,18 @@ useEffect(() => {
   getAllComments()
 }, [])
 
-
 const getAllComments = () => {
   fetch(`${apiUrl}/videos/`)
   .then(response => {
     return response.json()
   })
   .then(foundComments => {
-    console.log("these are comments??? WHERE THIS: ", foundComments)
+    // console.log("these are comments??? WHERE THIS: ", foundComments)
     setAllComments(foundComments.comment)
   })
   .catch(error => console.log(error))
 }
-
-
-
-console.log('this is user', user)
+// console.log('this is user', user)
 
 const getAllVideos = () => {
       fetch(`${apiUrl}/videos/`)
@@ -65,8 +54,8 @@ const getAllVideos = () => {
           return response.json()
       })
       .then(foundVideos => {
-        console.log("this is foundvideos", foundVideos)
-          console.log("anything?", foundVideos.videos)
+        // console.log("this is foundvideos", foundVideos)
+          // console.log("anything?", foundVideos.videos)
           setAllVideos(foundVideos.videos)
     // console.log("this is allVideos", allVideos)
   })
@@ -79,13 +68,13 @@ const getAllProfile = () => {
     fetch(`${apiUrl}/users/`)
     .then(response => response.json())
     .then((foundUserResponse) => {
-      console.log("trying to render: ", foundUserResponse)
+      // console.log("trying to render: ", foundUserResponse)
       let foundUser = foundUserResponse.profile.filter((cUser)=>{
         return user._id === cUser.owner })
       if (foundUser === null) {
         setCurProfile(null)
       }
-      console.log("this would be the matching user..", foundUser)
+      // console.log("this would be the matching user..", foundUser)s
       setCurProfile(foundUser) 
     }) // this promise is failing and i don't know why lmao...
     .catch(err => console.log(err))
@@ -93,8 +82,7 @@ const getAllProfile = () => {
   }
 }
 
-
-  console.log('message alerts', msgAlerts)
+  // console.log('message alerts', msgAlerts)
   const clearUser = () => {
     console.log('clear user ran')
     setUser(null)
@@ -117,8 +105,6 @@ const getAllProfile = () => {
   //upon sign in we should "pass down profile info with the user" as a prop to any component we want
   // we refactor 
   // 
-
-
 
 		return (
       <Fragment>

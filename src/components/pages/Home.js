@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container'
 
 const Home = (props) => {
 	// const { msgAlert, user } = props
-	console.log('props in home', props)
+	// console.log('props in home', props)
 
 	let allFoundVideos
 	if (props.allVideos !== null) {

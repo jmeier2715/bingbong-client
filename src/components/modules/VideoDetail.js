@@ -7,8 +7,8 @@ export default function VideoDetail (props) {
     /* things we have that we will need in state */
     const [comments, setComments] = useState([])
     const { id } = useParams();
-    console.log(useParams)
-    console.log(props.id)
+    // console.log(useParams)
+    // console.log(props.id)
     // we will need to use, useParams in order to render detail pages....
 
     useEffect(()=>{
@@ -23,7 +23,7 @@ export default function VideoDetail (props) {
             return response.json()
         })
         .then(foundVideos=>{
-            console.log("anything?", foundVideos.Video)
+            // console.log("anything?", foundVideos.Video)
             setVideo(foundVideos.Video)
         })
     }

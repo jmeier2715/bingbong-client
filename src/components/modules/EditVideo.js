@@ -6,13 +6,13 @@ import apiUrl from '../../apiConfig'
 
 export default function EditVideo(props) {
     const { id }  = useParams();
-    console.log(useParams())
+    // console.log(useParams())
 
     let userVideo = props.allVideos.filter((uVideos) => {
         return uVideos._id === id
     })
-    console.log("uservideo", userVideo[0]._id)
-    console.log("idparam", id)
+    // console.log("uservideo", userVideo[0]._id)
+    // console.log("idparam", id)
 
 
     const [form, setForm] = useState({
@@ -26,7 +26,7 @@ export default function EditVideo(props) {
             title: form.title,
             categoryName: form.categoryName
         }
-        console.log("this PJB", preJSONBody)
+        // console.log("this PJB", preJSONBody)
         fetch(`${apiUrl}/videos/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(preJSONBody),
@@ -52,14 +52,9 @@ export default function EditVideo(props) {
         setForm({ ...form, [e.target.name]: e.target.value })
         // this is to see change and update current input value and assign it to NewVideo
 }
-
-
-
     // console.log("this is editvideo", props.allVideos)
 
-    console.log(props)
-
-
+    (props)
 
     // console.log(userVideo)
 
